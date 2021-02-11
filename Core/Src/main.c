@@ -93,6 +93,7 @@ int main(void)
   uint16_t LED1_Half_Preiod = 500; // 1Hz
   uint32_t Timestamp = 0;
   uint32_t Button_Timestamp = 0;
+  uint16_t count = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -112,15 +113,24 @@ int main(void)
 		  SwitchState[0] = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_10);
 		  if (SwitchState[1] == GPIO_PIN_SET && SwitchState[0] == GPIO_PIN_RESET)
 		  {
-				// Change LED1_Frequency
-				if (LED1_Half_Preiod == 500)
-				{
-					LED1_Half_Preiod = 250;
-				}
-				else
-				{
-					LED1_Half_Preiod = 500;
-				}
+			  if (count == 0 )
+			  {
+				  LED1_Half_Preiod = 2000;
+			  }
+			  else if (count == 1)
+			  {
+				  LED1_Half_Preiod = 100;
+			  }
+			  else if (count == 2)
+			  			  {
+				  LED1_Half_Preiod = 500;
+			  			  }
+			  else if (count == 3)
+			  			  {
+				  LED1_Half_Preiod = 333;
+			  				  count = 0;
+			  			  }
+
 
 		  }
 		  SwitchState[1] = SwitchState[0];
