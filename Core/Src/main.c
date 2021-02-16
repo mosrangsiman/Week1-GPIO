@@ -91,7 +91,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //------------------------------------------------------
    GPIO_PinState SwitchState[2];  //Now, Previous
-   uint16_t LED1_Half_Period = 500;  // 1 Hz
+   uint16_t LED1_Half_Period = 1000;  // 1 Hz
    uint32_t TimeStamp = 0;
    uint32_t ButtonTimeStamp = 0;
 
@@ -112,14 +112,23 @@ int main(void)
        // set = high , reset = low
        {
         //Change Half Period of LED 1
-        if(LED1_Half_Period == 500)
-        {
-         LED1_Half_Period = 250;
-        }
-        else
+        if(LED1_Half_Period == 1000)
         {
          LED1_Half_Period = 500;
         }
+        else if (LED1_Half_Period == 500)
+        {
+         LED1_Half_Period = 250;
+        }
+
+        else if (LED1_Half_Period == 250)
+                {
+                 LED1_Half_Period = 167;
+                }
+        else if (LED1_Half_Period == 167)
+                {
+                 LED1_Half_Period = 1000;
+                }
        }
        SwitchState[1] = SwitchState[0];
    }
@@ -138,30 +147,7 @@ int main(void)
     {
      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
     }
-    if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7) == GPIO_PIN_SET)
-        {
-         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_RESET);
-        }
-        else
-        {
-         HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
-        }
-    if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7) == GPIO_PIN_SET)
-        {
-         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
-        }
-        else
-        {
-         HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-        }
-    if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_6) == GPIO_PIN_SET)
-        {
-         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-        }
-        else
-        {
-         HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-        }
+
    }
 
 
